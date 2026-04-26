@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fassnacht Manufaktur | Handgemachtes aus Holz</title>
+  <meta name="description" content="Fassnacht Manufaktur fertigt handgemachte Einzelstücke aus Holz: Spielideen, Dekoration, personalisierte Geschenke und individuelle Auftragsarbeiten." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wood: #7a4b2a;
+      --wood-dark: #4b2d1b;
+      --wood-soft: #b8895f;
+      --cream: #f8f3eb;
+      --sand: #eadbc8;
+      --paper: #fffaf3;
+      --text: #2c211a;
+      --muted: #75665d;
+      --green: #546343;
+      --border: rgba(122, 75, 42, 0.18);
+      --shadow: 0 20px 60px rgba(75, 45, 27, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(184, 137, 95, 0.18), transparent 34rem),
+        linear-gradient(180deg, #fffaf3 0%, #f8f3eb 55%, #ffffff 100%);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(255, 250, 243, 0.82);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--wood), var(--wood-soft));
+      display: grid;
+      place-items: center;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(122, 75, 42, 0.22);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .brand span:last-child { font-family: "Cormorant Garamond", serif; font-size: 25px; }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nav-links a:hover { color: var(--wood); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: var(--wood);
+      box-shadow: 0 14px 34px rgba(122, 75, 42, 0.24);
+    }
+
+    .btn-primary:hover { background: var(--wood-dark); transform: translateY(-2px); }
+
+    .btn-secondary {
+      color: var(--wood-dark);
+      background: rgba(255,255,255,0.7);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: #fff; transform: translateY(-2px); }
+
+    .hero {
+      padding: 86px 0 76px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 56px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--wood);
+      background: rgba(122, 75, 42, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      font-family: "Cormorant Garamond", serif;
+      line-height: 0.98;
+      color: var(--wood-dark);
+      margin: 0;
+    }
+
+    h1 {
+      margin-top: 22px;
+      font-size: clamp(48px, 7vw, 88px);
+      letter-spacing: -0.055em;
+    }
+
+    .hero p {
+      margin: 24px 0 0;
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 620px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 38px;
+      max-width: 650px;
+    }
+
+    .trust-card {
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+    }
+
+    .trust-card strong { display: block; color: var(--wood-dark); }
+    .trust-card span { font-size: 13px; color: var(--muted); }
+
+    .hero-visual {
+      background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(234,219,200,0.8));
+      border: 1px solid var(--border);
+      border-radius: 42px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .logo-card {
+      min-height: 420px;
+      border-radius: 30px;
+      background:
+        linear-gradient(rgba(255, 250, 243, 0.7), rgba(255, 250, 243, 0.7)),
+        url("logo-fassnacht.jpg") center/contain no-repeat;
+      display: grid;
+      place-items: end start;
+      padding: 26px;
+      border: 1px solid rgba(122, 75, 42, 0.14);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-card::after {
+      content: "Logo hier als Datei logo-fassnacht.jpg einfügen";
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.78);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 12px;
+    }
+
+    .floating-note {
+      position: absolute;
+      left: -22px;
+      bottom: 34px;
+      width: min(260px, 75%);
+      padding: 18px;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 18px 40px rgba(75,45,27,0.12);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .floating-note strong { display: block; color: var(--wood-dark); font-size: 15px; margin-bottom: 3px; }
+
+    section { padding: 82px 0; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 { font-size: clamp(38px, 5vw, 62px); letter-spacing: -0.035em; }
+    .section-head p { color: var(--muted); max-width: 480px; margin: 0; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 14px 34px rgba(75,45,27,0.06);
+      min-height: 260px;
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(122,75,42,0.09);
+      color: var(--wood);
+      font-size: 25px;
+      margin-bottom: 22px;
+    }
+
+    .card h3 { font-size: 32px; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .card p { color: var(--muted); margin: 0; }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .image-placeholder {
+      min-height: 520px;
+      border-radius: 36px;
+      background:
+        linear-gradient(rgba(75,45,27,0.25), rgba(75,45,27,0.08)),
+        url("werkstatt.jpg") center/cover no-repeat,
+        linear-gradient(135deg, var(--sand), #fff);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .image-placeholder::after {
+      content: "Bildplatzhalter: werkstatt.jpg";
+      position: absolute;
+      left: 22px;
+      bottom: 22px;
+      color: #fff;
+      background: rgba(75,45,27,0.55);
+      backdrop-filter: blur(8px);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .content-panel {
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--border);
+      border-radius: 36px;
+      padding: 40px;
+    }
+
+    .content-panel h2 { font-size: clamp(38px, 5vw, 62px); letter-spacing: -0.035em; }
+    .content-panel p { color: var(--muted); margin: 18px 0 0; }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 28px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .checklist li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      flex: 0 0 24px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(84,99,67,0.12);
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 900;
+      margin-top: 1px;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      counter-reset: steps;
+    }
+
+    .step {
+      counter-increment: steps;
+      padding: 26px;
+      min-height: 230px;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step::before {
+      content: "0" counter(steps);
+      font-family: "Cormorant Garamond", serif;
+      position: absolute;
+      right: 22px;
+      top: 16px;
+      font-size: 54px;
+      color: rgba(122,75,42,0.13);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .step h3 { font-size: 28px; margin: 44px 0 10px; }
+    .step p { color: var(--muted); margin: 0; font-size: 15px; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      gap: 16px;
+    }
+
+    .gallery-item {
+      min-height: 260px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65));
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: end;
+      padding: 22px;
+      color: var(--wood-dark);
+      font-weight: 800;
+    }
+
+    .gallery-item:nth-child(1) { min-height: 390px; grid-row: span 2; background-image: url("projekt-1.jpg"), linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65)); background-size: cover; background-position: center; }
+    .gallery-item:nth-child(2) { background-image: url("projekt-2.jpg"), linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65)); background-size: cover; background-position: center; }
+    .gallery-item:nth-child(3) { background-image: url("projekt-3.jpg"), linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65)); background-size: cover; background-position: center; }
+    .gallery-item:nth-child(4) { background-image: url("projekt-4.jpg"), linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65)); background-size: cover; background-position: center; }
+    .gallery-item:nth-child(5) { background-image: url("projekt-5.jpg"), linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65)); background-size: cover; background-position: center; }
+
+    .notice {
+      border-radius: 34px;
+      padding: 36px;
+      background: linear-gradient(135deg, rgba(84,99,67,0.1), rgba(122,75,42,0.08));
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .notice h2 { font-size: clamp(36px, 5vw, 58px); letter-spacing: -0.035em; }
+    .notice p { margin: 12px 0 0; color: var(--muted); max-width: 720px; }
+
+    .contact {
+      background: var(--wood-dark);
+      color: #fff;
+      border-radius: 46px 46px 0 0;
+      padding: 76px 0 36px;
+      margin-top: 50px;
+    }
+
+    .contact h2 { color: #fff; font-size: clamp(42px, 6vw, 76px); letter-spacing: -0.045em; }
+    .contact p { color: rgba(255,255,255,0.72); max-width: 650px; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.85fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 30px;
+      padding: 28px;
+    }
+
+    .contact-card label {
+      display: block;
+      color: rgba(255,255,255,0.75);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .contact-card input,
+    .contact-card textarea,
+    .contact-card select {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      padding: 14px 16px;
+      font: inherit;
+      outline: none;
+      margin-bottom: 14px;
+    }
+
+    .contact-card textarea { min-height: 130px; resize: vertical; }
+    .contact-card input::placeholder, .contact-card textarea::placeholder { color: rgba(255,255,255,0.46); }
+    .contact-card select option { color: #111; }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding-top: 38px;
+      color: rgba(255,255,255,0.58);
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .nav-links { display: none; }
+      .hero-grid, .split, .contact-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      .process { grid-template-columns: repeat(2, 1fr); }
+      .gallery { grid-template-columns: 1fr; }
+      .gallery-item:nth-child(1) { grid-row: auto; }
+      .notice { grid-template-columns: 1fr; }
+      .floating-note { position: static; width: auto; margin-top: 18px; }
+    }
+
+    @media (max-width: 560px) {
+      .container { width: min(100% - 26px, 1120px); }
+      .hero { padding: 54px 0; }
+      section { padding: 58px 0; }
+      .trust-row, .process { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 14px; }
+      .content-panel, .notice, .contact-card { padding: 24px; }
+      .logo-card { min-height: 310px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#start" aria-label="Fassnacht Manufaktur Startseite">
+        <span class="brand-mark">F</span>
+        <span>Fassnacht Manufaktur</span>
+      </a>
+      <nav class="nav-links" aria-label="Hauptnavigation">
+        <a href="#leistungen">Angebot</a>
+        <a href="#ueber-uns">Über uns</a>
+        <a href="#prozess">Ablauf</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a class="btn btn-primary" href="mailto:deine-email@example.com?subject=Anfrage%20Fassnacht%20Manufaktur">Anfrage senden</a>
+    </div>
+  </header>
+
+  <main id="start">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Handgemacht · Holz · Einzelstücke</span>
+          <h1>Individuelle Holzarbeiten mit Charakter.</h1>
+          <p>
+            Fassnacht Manufaktur steht für liebevoll gefertigte Unikate aus Holz: dekorative Stücke, persönliche Geschenke, kleine Möbel, Spielideen und besondere Auftragsarbeiten — sauber geplant, hochwertig umgesetzt und mit Blick fürs Detail.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#kontakt">Projekt anfragen</a>
+            <a class="btn btn-secondary" href="#galerie">Arbeiten ansehen</a>
+          </div>
+          <div class="trust-row" aria-label="Vorteile">
+            <div class="trust-card"><strong>Einzelanfertigung</strong><span>Keine Massenware, sondern persönliche Stücke.</span></div>
+            <div class="trust-card"><strong>Natürliches Material</strong><span>Holz mit warmer, ehrlicher Ausstrahlung.</span></div>
+            <div class="trust-card"><strong>Auf Wunsch geplant</strong><span>Von Idee bis fertigem Objekt begleitet.</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="logo-card"></div>
+          <div class="floating-note">
+            <strong>Hinweis zur Ausrichtung</strong>
+            Die Seite ist bewusst breit aufgestellt: nicht nur Kinderspielzeug, sondern hochwertige Holzarbeiten nach Wunsch.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="leistungen">
+      <div class="container">
+        <div class="section-head">
+          <h2>Was entstehen kann</h2>
+          <p>Die Manufaktur kann flexibel starten, ohne sich direkt auf eine einzige Produktkategorie festzulegen. So bleibt Raum für Kundenwünsche und neue Ideen.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="icon">🧸</div>
+            <h3>Spiel & Kinderzimmer</h3>
+            <p>Schlichte, schöne Holzideen für Kinderzimmer und Spielbereiche. Bei Spielzeug wird transparent auf geeignete Materialien, sichere Verarbeitung und klare Hinweise geachtet.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🏡</div>
+            <h3>Deko & Zuhause</h3>
+            <p>Handgemachte Dekoration, kleine Regale, Schilder, Holzobjekte und persönliche Stücke, die Wärme und Natürlichkeit in Räume bringen.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🎁</div>
+            <h3>Geschenke nach Wunsch</h3>
+            <p>Personalisierte Arbeiten für Geburt, Hochzeit, Taufe, Jubiläum oder besondere Anlässe — mit Namen, Motiven oder individuellen Maßen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ueber-uns">
+      <div class="container split">
+        <div class="image-placeholder"></div>
+        <div class="content-panel">
+          <span class="eyebrow">Über die Werkstatt</span>
+          <h2>Aus einer Idee wird ein Stück, das bleibt.</h2>
+          <p>
+            Bei Fassnacht Manufaktur geht es nicht um schnelle Massenproduktion. Es geht um ehrliches Handwerk, natürliche Materialien und Produkte, die bewusst gestaltet werden. Jedes Projekt beginnt mit einer Idee — manchmal klar, manchmal nur als grobe Vorstellung. Daraus entsteht Schritt für Schritt ein persönliches Holzstück.
+          </p>
+          <ul class="checklist">
+            <li>Individuelle Beratung vor jeder Anfertigung</li>
+            <li>Saubere Holzbearbeitung mit Liebe zum Detail</li>
+            <li>Flexible Umsetzung: von Deko bis Auftragsarbeit</li>
+            <li>Bewusster Umgang mit Oberflächen, Farben und Lacken</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="prozess">
+      <div class="container">
+        <div class="section-head">
+          <h2>So läuft eine Anfrage ab</h2>
+          <p>Klar, einfach und professionell — damit aus einer Idee ein realistisches Projekt wird.</p>
+        </div>
+        <div class="process">
+          <div class="step">
+            <h3>Idee senden</h3>
+            <p>Du beschreibst kurz, was du dir vorstellst. Bilder, Maße oder Beispiele helfen sehr.</p>
+          </div>
+          <div class="step">
+            <h3>Machbarkeit prüfen</h3>
+            <p>Material, Größe, Zweck und Aufwand werden eingeschätzt. Bei Kinderartikeln wird besonders sauber geprüft.</p>
+          </div>
+          <div class="step">
+            <h3>Angebot erhalten</h3>
+            <p>Du bekommst einen Vorschlag mit Preisrahmen, Zeitplan und wichtigen Details.</p>
+          </div>
+          <div class="step">
+            <h3>Anfertigung</h3>
+            <p>Nach Freigabe wird dein Stück gefertigt und auf Wunsch mit Zwischenständen dokumentiert.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="galerie">
+      <div class="container">
+        <div class="section-head">
+          <h2>Einblicke in Arbeiten</h2>
+          <p>Hier können später echte Projektbilder eingefügt werden. Die Dateinamen sind vorbereitet: projekt-1.jpg bis projekt-5.jpg.</p>
+        </div>
+        <div class="gallery">
+          <div class="gallery-item">Projektbild 1</div>
+          <div class="gallery-item">Projektbild 2</div>
+          <div class="gallery-item">Projektbild 3</div>
+          <div class="gallery-item">Projektbild 4</div>
+          <div class="gallery-item">Projektbild 5</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container notice">
+        <div>
+          <h2>Kinderspielzeug? Ja — aber bewusst.</h2>
+          <p>
+            Für Produkte, die ausdrücklich als Kinderspielzeug verkauft werden, gelten besondere Anforderungen an Sicherheit, Material, Oberflächen, Farben und Kennzeichnung. Deshalb ist die Seite so formuliert, dass sie professionell wirkt, aber dich nicht zu früh auf eine rechtlich sensible Kategorie festnagelt.
+          </p>
+        </div>
+        <a class="btn btn-secondary" href="#kontakt">Beratung starten</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="kontakt" class="contact">
+    <div class="container contact-grid">
+      <div>
+        <span class="eyebrow" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.16);">Kontakt</span>
+        <h2>Lass uns dein Holzprojekt planen.</h2>
+        <p>
+          Schreibe kurz, was du suchst: Geschenk, Deko, Kinderzimmer-Idee, Schild, Möbelstück oder eine ganz eigene Vorstellung. Je genauer die Beschreibung, desto besser kann ein Preisrahmen eingeschätzt werden.
+        </p>
+        <p><strong>E-Mail:</strong> <a href="mailto:deine-email@example.com">deine-email@example.com</a></p>
+      </div>
+
+      <form class="contact-card" action="mailto:deine-email@example.com" method="post" enctype="text/plain">
+        <label for="name">Name</label>
+        <input id="name" name="Name" placeholder="Dein Name" />
+
+        <label for="email">E-Mail</label>
+        <input id="email" name="E-Mail" type="email" placeholder="deine@email.de" />
+
+        <label for="type">Art der Anfrage</label>
+        <select id="type" name="Art der Anfrage">
+          <option>Individuelle Holzarbeit</option>
+          <option>Geschenk / Personalisierung</option>
+          <option>Kinderzimmer / Spielidee</option>
+          <option>Deko / Zuhause</option>
+          <option>Sonstiges</option>
+        </select>
+
+        <label for="message">Nachricht</label>
+        <textarea id="message" name="Nachricht" placeholder="Beschreibe kurz deine Idee, Maße, Wunschmaterial oder lade später Bilder per E-Mail mit hoch."></textarea>
+
+        <button class="btn btn-primary" type="submit" style="width: 100%; background: var(--wood-soft);">Anfrage absenden</button>
+      </form>
+    </div>
+
+    <div class="container footer">
+      <span>© <span id="year"></span> Fassnacht Manufaktur. Alle Rechte vorbehalten.</span>
+      <span>Impressum · Datenschutz · AGB können später ergänzt werden.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
