@@ -2,12 +2,18 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Fassnacht Manufaktur | Handgemachtes aus Holz</title>
-  <meta name="description" content="Fassnacht Manufaktur fertigt handgemachte Einzelstücke aus Holz: Spielideen, Dekoration, personalisierte Geschenke und individuelle Auftragsarbeiten." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta
+    name="description"
+    content="Fassnacht Manufaktur fertigt handgemachte Einzelstücke aus Holz: Spielideen, Dekoration, personalisierte Geschenke und individuelle Auftragsarbeiten."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet"
+  />
   <style>
     :root {
       --wood: #7a4b2a;
@@ -20,23 +26,79 @@
       --muted: #75665d;
       --green: #546343;
       --border: rgba(122, 75, 42, 0.18);
-      --shadow: 0 20px 60px rgba(75, 45, 27, 0.12);
+      --shadow-soft: 0 14px 34px rgba(75, 45, 27, 0.08);
+      --shadow-strong: 0 20px 60px rgba(75, 45, 27, 0.12);
+      --radius-lg: 36px;
+      --radius-md: 28px;
+      --radius-sm: 18px;
+      --transition: 0.2s ease;
+      --mobile-header-height: 72px;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 92px;
+    }
+
     body {
       margin: 0;
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
+      line-height: 1.6;
       background:
         radial-gradient(circle at top left, rgba(184, 137, 95, 0.18), transparent 34rem),
         linear-gradient(180deg, #fffaf3 0%, #f8f3eb 55%, #ffffff 100%);
-      line-height: 1.6;
     }
 
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      line-height: 0.98;
+      color: var(--wood-dark);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      touch-action: manipulation;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    :where(a, button, input, textarea, select):focus-visible {
+      outline: 3px solid rgba(184, 137, 95, 0.6);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: 8px;
+      z-index: 120;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      transform: translateY(-180%);
+      transition: transform var(--transition);
+    }
+
+    .skip-link:focus-visible {
+      transform: translateY(0);
+    }
 
     .container {
       width: min(1120px, calc(100% - 40px));
@@ -46,7 +108,7 @@
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 100;
       backdrop-filter: blur(16px);
       background: rgba(255, 250, 243, 0.82);
       border-bottom: 1px solid var(--border);
@@ -66,34 +128,62 @@
       gap: 12px;
       font-weight: 800;
       letter-spacing: -0.02em;
+      flex-shrink: 0;
     }
 
     .brand-mark {
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--wood), var(--wood-soft));
       display: grid;
       place-items: center;
       color: #fff;
-      box-shadow: 0 8px 24px rgba(122, 75, 42, 0.22);
-      font-family: "Cormorant Garamond", serif;
       font-size: 25px;
       font-weight: 700;
+      font-family: "Cormorant Garamond", serif;
+      background: linear-gradient(135deg, var(--wood), var(--wood-soft));
+      box-shadow: 0 8px 24px rgba(122, 75, 42, 0.22);
     }
 
-    .brand span:last-child { font-family: "Cormorant Garamond", serif; font-size: 25px; }
+    .brand-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 25px;
+      line-height: 1;
+    }
 
     .nav-links {
       display: flex;
-      gap: 24px;
       align-items: center;
+      gap: 24px;
       font-size: 14px;
       color: var(--muted);
       font-weight: 600;
     }
 
-    .nav-links a:hover { color: var(--wood); }
+    .nav-links a {
+      transition: color var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--wood);
+    }
+
+    .nav-toggle {
+      display: none;
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.75);
+      color: var(--wood-dark);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .mobile-nav {
+      display: none;
+    }
 
     .btn {
       display: inline-flex;
@@ -104,9 +194,10 @@
       padding: 0 22px;
       border-radius: 999px;
       border: 1px solid transparent;
-      font-weight: 700;
-      transition: 0.2s ease;
       cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+      transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
     }
 
     .btn-primary {
@@ -115,18 +206,34 @@
       box-shadow: 0 14px 34px rgba(122, 75, 42, 0.24);
     }
 
-    .btn-primary:hover { background: var(--wood-dark); transform: translateY(-2px); }
+    .btn-primary:hover {
+      background: var(--wood-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary-soft {
+      background: var(--wood-soft);
+      color: #fff;
+    }
 
     .btn-secondary {
       color: var(--wood-dark);
-      background: rgba(255,255,255,0.7);
+      background: rgba(255, 255, 255, 0.72);
       border-color: var(--border);
     }
 
-    .btn-secondary:hover { background: #fff; transform: translateY(-2px); }
+    .btn-secondary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 82px 0;
+    }
 
     .hero {
-      padding: 86px 0 76px;
+      padding-top: 86px;
+      padding-bottom: 76px;
       position: relative;
       overflow: hidden;
     }
@@ -142,22 +249,21 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      color: var(--wood);
-      background: rgba(122, 75, 42, 0.08);
-      border: 1px solid var(--border);
       border-radius: 999px;
       padding: 8px 14px;
+      border: 1px solid var(--border);
+      color: var(--wood);
+      background: rgba(122, 75, 42, 0.08);
       font-size: 13px;
       font-weight: 800;
       letter-spacing: 0.02em;
       text-transform: uppercase;
     }
 
-    h1, h2, h3 {
-      font-family: "Cormorant Garamond", serif;
-      line-height: 0.98;
-      color: var(--wood-dark);
-      margin: 0;
+    .eyebrow-light {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.16);
     }
 
     h1 {
@@ -190,48 +296,54 @@
 
     .trust-card {
       padding: 18px;
-      background: rgba(255, 255, 255, 0.65);
-      border: 1px solid var(--border);
       border-radius: 22px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.65);
     }
 
-    .trust-card strong { display: block; color: var(--wood-dark); }
-    .trust-card span { font-size: 13px; color: var(--muted); }
+    .trust-card strong {
+      display: block;
+      color: var(--wood-dark);
+    }
+
+    .trust-card span {
+      font-size: 13px;
+      color: var(--muted);
+    }
 
     .hero-visual {
-      background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(234,219,200,0.8));
-      border: 1px solid var(--border);
-      border-radius: 42px;
-      padding: 24px;
-      box-shadow: var(--shadow);
       position: relative;
+      padding: 24px;
+      border-radius: 42px;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(234, 219, 200, 0.8));
+      box-shadow: var(--shadow-strong);
     }
 
     .logo-card {
       min-height: 420px;
       border-radius: 30px;
+      border: 1px solid rgba(122, 75, 42, 0.14);
       background:
         linear-gradient(rgba(255, 250, 243, 0.7), rgba(255, 250, 243, 0.7)),
-        url("logo-fassnacht.jpg") center/contain no-repeat;
-      display: grid;
-      place-items: end start;
-      padding: 26px;
-      border: 1px solid rgba(122, 75, 42, 0.14);
-      position: relative;
+        url("logo-fassnacht.jpg") center / contain no-repeat,
+        linear-gradient(135deg, #f7ecdd, #fff);
       overflow: hidden;
+      display: flex;
+      align-items: end;
+      padding: 24px;
     }
 
-    .logo-card::after {
-      content: "Logo hier als Datei logo-fassnacht.jpg einfügen";
-      position: absolute;
-      right: 18px;
-      bottom: 18px;
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.78);
-      border: 1px solid var(--border);
-      border-radius: 999px;
+    .logo-badge {
       padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--wood-dark);
+      background: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
 
     .floating-note {
@@ -240,17 +352,20 @@
       bottom: 34px;
       width: min(260px, 75%);
       padding: 18px;
-      background: var(--paper);
-      border: 1px solid var(--border);
       border-radius: 24px;
-      box-shadow: 0 18px 40px rgba(75,45,27,0.12);
-      font-size: 14px;
+      border: 1px solid var(--border);
+      background: var(--paper);
+      box-shadow: 0 18px 40px rgba(75, 45, 27, 0.12);
       color: var(--muted);
+      font-size: 14px;
     }
 
-    .floating-note strong { display: block; color: var(--wood-dark); font-size: 15px; margin-bottom: 3px; }
-
-    section { padding: 82px 0; }
+    .floating-note strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--wood-dark);
+      font-size: 15px;
+    }
 
     .section-head {
       display: flex;
@@ -260,8 +375,18 @@
       margin-bottom: 34px;
     }
 
-    .section-head h2 { font-size: clamp(38px, 5vw, 62px); letter-spacing: -0.035em; }
-    .section-head p { color: var(--muted); max-width: 480px; margin: 0; }
+    .section-head h2,
+    .content-panel h2,
+    .notice h2 {
+      font-size: clamp(38px, 5vw, 62px);
+      letter-spacing: -0.035em;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 480px;
+      color: var(--muted);
+    }
 
     .cards {
       display: grid;
@@ -270,72 +395,66 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      padding: 28px;
-      box-shadow: 0 14px 34px rgba(75,45,27,0.06);
       min-height: 260px;
+      padding: 28px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow-soft);
     }
 
     .icon {
       width: 52px;
       height: 52px;
+      margin-bottom: 22px;
       display: grid;
       place-items: center;
       border-radius: 18px;
-      background: rgba(122,75,42,0.09);
+      background: rgba(122, 75, 42, 0.09);
       color: var(--wood);
       font-size: 25px;
-      margin-bottom: 22px;
     }
 
-    .card h3 { font-size: 32px; letter-spacing: -0.02em; margin-bottom: 12px; }
-    .card p { color: var(--muted); margin: 0; }
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
 
     .split {
       display: grid;
       grid-template-columns: 0.9fr 1.1fr;
-      gap: 44px;
       align-items: center;
+      gap: 44px;
     }
 
     .image-placeholder {
       min-height: 520px;
-      border-radius: 36px;
-      background:
-        linear-gradient(rgba(75,45,27,0.25), rgba(75,45,27,0.08)),
-        url("werkstatt.jpg") center/cover no-repeat,
-        linear-gradient(135deg, var(--sand), #fff);
+      border-radius: var(--radius-lg);
       border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .image-placeholder::after {
-      content: "Bildplatzhalter: werkstatt.jpg";
-      position: absolute;
-      left: 22px;
-      bottom: 22px;
-      color: #fff;
-      background: rgba(75,45,27,0.55);
-      backdrop-filter: blur(8px);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
+      box-shadow: var(--shadow-strong);
+      background:
+        linear-gradient(rgba(75, 45, 27, 0.25), rgba(75, 45, 27, 0.08)),
+        url("werkstatt.jpg") center / cover no-repeat,
+        linear-gradient(135deg, var(--sand), #fff);
     }
 
     .content-panel {
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid var(--border);
-      border-radius: 36px;
       padding: 40px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.72);
     }
 
-    .content-panel h2 { font-size: clamp(38px, 5vw, 62px); letter-spacing: -0.035em; }
-    .content-panel p { color: var(--muted); margin: 18px 0 0; }
+    .content-panel p {
+      margin: 18px 0 0;
+      color: var(--muted);
+    }
 
     .checklist {
       list-style: none;
@@ -347,8 +466,8 @@
 
     .checklist li {
       display: flex;
-      gap: 12px;
       align-items: flex-start;
+      gap: 12px;
       color: var(--text);
       font-weight: 600;
     }
@@ -358,14 +477,14 @@
       flex: 0 0 24px;
       width: 24px;
       height: 24px;
-      border-radius: 50%;
+      margin-top: 1px;
       display: grid;
       place-items: center;
-      background: rgba(84,99,67,0.12);
+      border-radius: 50%;
+      background: rgba(84, 99, 67, 0.12);
       color: var(--green);
       font-size: 14px;
       font-weight: 900;
-      margin-top: 1px;
     }
 
     .process {
@@ -376,30 +495,38 @@
     }
 
     .step {
-      counter-increment: steps;
-      padding: 26px;
-      min-height: 230px;
-      border-radius: 28px;
-      border: 1px solid var(--border);
-      background: var(--paper);
       position: relative;
       overflow: hidden;
+      min-height: 230px;
+      padding: 26px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--paper);
+      counter-increment: steps;
     }
 
     .step::before {
       content: "0" counter(steps);
-      font-family: "Cormorant Garamond", serif;
       position: absolute;
-      right: 22px;
       top: 16px;
+      right: 22px;
+      font-family: "Cormorant Garamond", serif;
       font-size: 54px;
-      color: rgba(122,75,42,0.13);
       font-weight: 700;
       line-height: 1;
+      color: rgba(122, 75, 42, 0.13);
     }
 
-    .step h3 { font-size: 28px; margin: 44px 0 10px; }
-    .step p { color: var(--muted); margin: 0; font-size: 15px; }
+    .step h3 {
+      margin: 44px 0 10px;
+      font-size: 28px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
 
     .gallery {
       display: grid;
@@ -408,128 +535,427 @@
     }
 
     .gallery-item {
+      --image: none;
       min-height: 260px;
       border-radius: 30px;
-      background: linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65));
       border: 1px solid var(--border);
       display: flex;
       align-items: end;
       padding: 22px;
       color: var(--wood-dark);
       font-weight: 800;
+      background-image:
+        linear-gradient(135deg, rgba(122, 75, 42, 0.2), rgba(234, 219, 200, 0.65)),
+        var(--image);
+      background-size: cover;
+      background-position: center;
     }
 
-    .gallery-item:nth-child(1) { min-height: 390px; grid-row: span 2; background-image: url("projekt-1.jpg"), linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65)); background-size: cover; background-position: center; }
-    .gallery-item:nth-child(2) { background-image: url("projekt-2.jpg"), linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65)); background-size: cover; background-position: center; }
-    .gallery-item:nth-child(3) { background-image: url("projekt-3.jpg"), linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65)); background-size: cover; background-position: center; }
-    .gallery-item:nth-child(4) { background-image: url("projekt-4.jpg"), linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65)); background-size: cover; background-position: center; }
-    .gallery-item:nth-child(5) { background-image: url("projekt-5.jpg"), linear-gradient(135deg, rgba(122,75,42,0.18), rgba(234,219,200,0.65)); background-size: cover; background-position: center; }
+    .gallery-item--1 {
+      min-height: 390px;
+      grid-row: span 2;
+      --image: url("projekt-1.jpg");
+    }
+
+    .gallery-item--2 {
+      --image: url("projekt-2.jpg");
+    }
+
+    .gallery-item--3 {
+      --image: url("projekt-3.jpg");
+    }
+
+    .gallery-item--4 {
+      --image: url("projekt-4.jpg");
+    }
+
+    .gallery-item--5 {
+      --image: url("projekt-5.jpg");
+    }
 
     .notice {
-      border-radius: 34px;
-      padding: 36px;
-      background: linear-gradient(135deg, rgba(84,99,67,0.1), rgba(122,75,42,0.08));
-      border: 1px solid var(--border);
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: center;
       gap: 24px;
+      padding: 36px;
+      border-radius: 34px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(84, 99, 67, 0.1), rgba(122, 75, 42, 0.08));
     }
 
-    .notice h2 { font-size: clamp(36px, 5vw, 58px); letter-spacing: -0.035em; }
-    .notice p { margin: 12px 0 0; color: var(--muted); max-width: 720px; }
+    .notice p {
+      margin: 12px 0 0;
+      max-width: 720px;
+      color: var(--muted);
+    }
 
     .contact {
-      background: var(--wood-dark);
-      color: #fff;
-      border-radius: 46px 46px 0 0;
-      padding: 76px 0 36px;
       margin-top: 50px;
+      padding: 76px 0 36px;
+      border-radius: 46px 46px 0 0;
+      color: #fff;
+      background: var(--wood-dark);
     }
 
-    .contact h2 { color: #fff; font-size: clamp(42px, 6vw, 76px); letter-spacing: -0.045em; }
-    .contact p { color: rgba(255,255,255,0.72); max-width: 650px; }
+    .contact h2 {
+      color: #fff;
+      font-size: clamp(42px, 6vw, 76px);
+      letter-spacing: -0.045em;
+    }
+
+    .contact p {
+      max-width: 650px;
+      color: rgba(255, 255, 255, 0.72);
+    }
 
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 0.85fr;
-      gap: 34px;
       align-items: start;
+      gap: 34px;
     }
 
     .contact-card {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.16);
-      border-radius: 30px;
       padding: 28px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .contact-card label {
       display: block;
-      color: rgba(255,255,255,0.75);
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.75);
       font-size: 13px;
       font-weight: 700;
-      margin-bottom: 8px;
     }
 
     .contact-card input,
     .contact-card textarea,
     .contact-card select {
       width: 100%;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 18px;
-      background: rgba(255,255,255,0.08);
-      color: #fff;
+      margin-bottom: 14px;
       padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
       font: inherit;
       outline: none;
-      margin-bottom: 14px;
     }
 
-    .contact-card textarea { min-height: 130px; resize: vertical; }
-    .contact-card input::placeholder, .contact-card textarea::placeholder { color: rgba(255,255,255,0.46); }
-    .contact-card select option { color: #111; }
+    .contact-card textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .contact-card input::placeholder,
+    .contact-card textarea::placeholder {
+      color: rgba(255, 255, 255, 0.46);
+    }
+
+    .contact-card select option {
+      color: #111;
+    }
 
     .footer {
       display: flex;
       justify-content: space-between;
-      gap: 20px;
       flex-wrap: wrap;
+      gap: 20px;
       padding-top: 38px;
-      color: rgba(255,255,255,0.58);
+      color: rgba(255, 255, 255, 0.58);
       font-size: 14px;
     }
 
+    .mobile-cta {
+      display: none;
+    }
+
     @media (max-width: 920px) {
-      .nav-links { display: none; }
-      .hero-grid, .split, .contact-grid { grid-template-columns: 1fr; }
-      .cards { grid-template-columns: 1fr; }
-      .process { grid-template-columns: repeat(2, 1fr); }
-      .gallery { grid-template-columns: 1fr; }
-      .gallery-item:nth-child(1) { grid-row: auto; }
-      .notice { grid-template-columns: 1fr; }
-      .floating-note { position: static; width: auto; margin-top: 18px; }
+      .nav {
+        min-height: var(--mobile-header-height);
+      }
+
+      .nav-links,
+      .nav-contact {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .mobile-nav {
+        display: block;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: var(--mobile-header-height);
+        height: calc(100vh - var(--mobile-header-height));
+        height: calc(100dvh - var(--mobile-header-height));
+        overflow-y: auto;
+        border-top: 1px solid transparent;
+        background: rgba(255, 250, 243, 0.98);
+        backdrop-filter: blur(18px);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: opacity 0.26s ease, transform 0.26s ease, border-color 0.26s ease;
+      }
+
+      .topbar[data-menu-state="open"] .mobile-nav {
+        border-color: var(--border);
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .topbar[data-menu-state="open"] {
+        box-shadow: 0 10px 32px rgba(75, 45, 27, 0.18);
+      }
+
+      .mobile-nav-inner {
+        padding: 20px 0 calc(26px + env(safe-area-inset-bottom));
+        display: grid;
+        gap: 8px;
+      }
+
+      .mobile-nav a {
+        padding: 12px 8px;
+        color: var(--muted);
+        font-size: 17px;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(122, 75, 42, 0.1);
+      }
+
+      .mobile-nav .btn {
+        margin-top: 10px;
+        width: 100%;
+        border-bottom: 0;
+      }
+
+      .hero-grid,
+      .split,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions .btn {
+        min-height: 52px;
+      }
+
+      .trust-row,
+      .process,
+      .gallery {
+        display: flex;
+        overflow-x: auto;
+        gap: 12px;
+        padding-bottom: 6px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .trust-card,
+      .step,
+      .gallery-item {
+        scroll-snap-align: start;
+      }
+
+      .trust-card {
+        flex: 0 0 min(85%, 320px);
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .process {
+        grid-template-columns: none;
+      }
+
+      .step {
+        min-height: 220px;
+        flex: 0 0 min(84%, 330px);
+      }
+
+      .gallery {
+        grid-template-columns: none;
+      }
+
+      .gallery-item--1 {
+        grid-row: auto;
+        min-height: 320px;
+      }
+
+      .gallery-item {
+        min-height: 260px;
+        flex: 0 0 min(86%, 340px);
+      }
+
+      .notice {
+        grid-template-columns: 1fr;
+      }
+
+      .floating-note {
+        position: static;
+        width: auto;
+        margin-top: 18px;
+      }
+
+      .contact-card input,
+      .contact-card textarea,
+      .contact-card select {
+        font-size: 16px;
+      }
+
+      body {
+        padding-bottom: calc(86px + env(safe-area-inset-bottom));
+      }
+
+      .mobile-cta {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 120;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+        border-top: 1px solid rgba(122, 75, 42, 0.2);
+        background: rgba(255, 250, 243, 0.97);
+        backdrop-filter: blur(14px);
+      }
+
+      .menu-open .mobile-cta {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .mobile-cta__link {
+        min-height: 48px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border);
+        color: var(--wood-dark);
+        background: #fff;
+        font-weight: 700;
+      }
+
+      .mobile-cta__link--primary {
+        border-color: transparent;
+        color: #fff;
+        background: var(--wood);
+      }
     }
 
     @media (max-width: 560px) {
-      .container { width: min(100% - 26px, 1120px); }
-      .hero { padding: 54px 0; }
-      section { padding: 58px 0; }
-      .trust-row, .process { grid-template-columns: 1fr; }
-      .section-head { display: block; }
-      .section-head p { margin-top: 14px; }
-      .content-panel, .notice, .contact-card { padding: 24px; }
-      .logo-card { min-height: 310px; }
+      :root {
+        --mobile-header-height: 64px;
+      }
+
+      .container {
+        width: min(1120px, calc(100% - 26px));
+      }
+
+      section {
+        padding: 58px 0;
+      }
+
+      .hero {
+        padding-top: 46px;
+        padding-bottom: 48px;
+      }
+
+      .brand-title {
+        font-size: 20px;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
+      }
+
+      h1 {
+        margin-top: 16px;
+        font-size: clamp(37px, 11vw, 50px);
+      }
+
+      .hero p {
+        margin-top: 16px;
+        font-size: 16px;
+      }
+
+      .hero-actions {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 14px;
+      }
+
+      .trust-row,
+      .process {
+        grid-template-columns: none;
+      }
+
+      .content-panel,
+      .notice,
+      .contact-card {
+        padding: 24px;
+      }
+
+      .logo-card {
+        min-height: 270px;
+      }
+
+      .mobile-cta {
+        grid-template-columns: 1.2fr 1fr;
+      }
+
+      .mobile-cta__link {
+        min-height: 46px;
+        font-size: 14px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
+  <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+
+  <header class="topbar" data-menu-state="closed">
     <div class="container nav">
       <a class="brand" href="#start" aria-label="Fassnacht Manufaktur Startseite">
         <span class="brand-mark">F</span>
-        <span>Fassnacht Manufaktur</span>
+        <span class="brand-title">Fassnacht Manufaktur</span>
       </a>
+
       <nav class="nav-links" aria-label="Hauptnavigation">
         <a href="#leistungen">Angebot</a>
         <a href="#ueber-uns">Über uns</a>
@@ -537,75 +963,131 @@
         <a href="#galerie">Galerie</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
-      <a class="btn btn-primary" href="mailto:deine-email@example.com?subject=Anfrage%20Fassnacht%20Manufaktur">Anfrage senden</a>
+
+      <a class="btn btn-primary nav-contact" href="#kontakt">Anfrage senden</a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-controls="mobile-navigation"
+        aria-expanded="false"
+        data-menu-toggle
+      >
+        Menü
+      </button>
     </div>
+
+    <nav id="mobile-navigation" class="mobile-nav" aria-label="Mobile Hauptnavigation">
+      <div class="container mobile-nav-inner">
+        <a href="#leistungen">Angebot</a>
+        <a href="#ueber-uns">Über uns</a>
+        <a href="#prozess">Ablauf</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+        <a class="btn btn-primary" href="#kontakt">Anfrage senden</a>
+      </div>
+    </nav>
   </header>
 
-  <main id="start">
-    <section class="hero">
+  <main id="main-content">
+    <section id="start" class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div>
           <span class="eyebrow">Handgemacht · Holz · Einzelstücke</span>
-          <h1>Individuelle Holzarbeiten mit Charakter.</h1>
+          <h1 id="hero-title">Individuelle Holzarbeiten mit Charakter.</h1>
           <p>
-            Fassnacht Manufaktur steht für liebevoll gefertigte Unikate aus Holz: dekorative Stücke, persönliche Geschenke, kleine Möbel, Spielideen und besondere Auftragsarbeiten — sauber geplant, hochwertig umgesetzt und mit Blick fürs Detail.
+            Fassnacht Manufaktur steht für liebevoll gefertigte Unikate aus Holz: dekorative Stücke, persönliche Geschenke,
+            kleine Möbel, Spielideen und besondere Auftragsarbeiten - sauber geplant, hochwertig umgesetzt und mit Blick fürs Detail.
           </p>
+
           <div class="hero-actions">
             <a class="btn btn-primary" href="#kontakt">Projekt anfragen</a>
             <a class="btn btn-secondary" href="#galerie">Arbeiten ansehen</a>
           </div>
+
           <div class="trust-row" aria-label="Vorteile">
-            <div class="trust-card"><strong>Einzelanfertigung</strong><span>Keine Massenware, sondern persönliche Stücke.</span></div>
-            <div class="trust-card"><strong>Natürliches Material</strong><span>Holz mit warmer, ehrlicher Ausstrahlung.</span></div>
-            <div class="trust-card"><strong>Auf Wunsch geplant</strong><span>Von Idee bis fertigem Objekt begleitet.</span></div>
+            <div class="trust-card">
+              <strong>Einzelanfertigung</strong>
+              <span>Keine Massenware, sondern persönliche Stücke.</span>
+            </div>
+            <div class="trust-card">
+              <strong>Natürliches Material</strong>
+              <span>Holz mit warmer, ehrlicher Ausstrahlung.</span>
+            </div>
+            <div class="trust-card">
+              <strong>Auf Wunsch geplant</strong>
+              <span>Von Idee bis fertigem Objekt begleitet.</span>
+            </div>
           </div>
         </div>
 
         <div class="hero-visual">
-          <div class="logo-card"></div>
+          <div class="logo-card">
+            <span class="logo-badge">Fassnacht Manufaktur</span>
+          </div>
           <div class="floating-note">
-            <strong>Hinweis zur Ausrichtung</strong>
-            Die Seite ist bewusst breit aufgestellt: nicht nur Kinderspielzeug, sondern hochwertige Holzarbeiten nach Wunsch.
+            <strong>Individuell statt Standard</strong>
+            Von Deko bis Maßanfertigung: die Werkstatt bleibt bewusst flexibel, damit echte Kundenwünsche im Mittelpunkt stehen.
           </div>
         </div>
       </div>
     </section>
 
-    <section id="leistungen">
+    <section id="leistungen" aria-labelledby="leistungen-title">
       <div class="container">
         <div class="section-head">
-          <h2>Was entstehen kann</h2>
-          <p>Die Manufaktur kann flexibel starten, ohne sich direkt auf eine einzige Produktkategorie festzulegen. So bleibt Raum für Kundenwünsche und neue Ideen.</p>
+          <h2 id="leistungen-title">Was entstehen kann</h2>
+          <p>
+            Die Manufaktur kann flexibel starten, ohne sich direkt auf eine einzige Produktkategorie festzulegen.
+            So bleibt Raum für Kundenwünsche und neue Ideen.
+          </p>
         </div>
+
         <div class="cards">
           <article class="card">
-            <div class="icon">🧸</div>
-            <h3>Spiel & Kinderzimmer</h3>
-            <p>Schlichte, schöne Holzideen für Kinderzimmer und Spielbereiche. Bei Spielzeug wird transparent auf geeignete Materialien, sichere Verarbeitung und klare Hinweise geachtet.</p>
+            <div class="icon" aria-hidden="true">🧸</div>
+            <h3>Spiel &amp; Kinderzimmer</h3>
+            <p>
+              Schlichte, schöne Holzideen für Kinderzimmer und Spielbereiche.
+              Bei Spielzeug wird transparent auf geeignete Materialien, sichere Verarbeitung und klare Hinweise geachtet.
+            </p>
           </article>
+
           <article class="card">
-            <div class="icon">🏡</div>
-            <h3>Deko & Zuhause</h3>
-            <p>Handgemachte Dekoration, kleine Regale, Schilder, Holzobjekte und persönliche Stücke, die Wärme und Natürlichkeit in Räume bringen.</p>
+            <div class="icon" aria-hidden="true">🏡</div>
+            <h3>Deko &amp; Zuhause</h3>
+            <p>
+              Handgemachte Dekoration, kleine Regale, Schilder, Holzobjekte und persönliche Stücke,
+              die Wärme und Natürlichkeit in Räume bringen.
+            </p>
           </article>
+
           <article class="card">
-            <div class="icon">🎁</div>
+            <div class="icon" aria-hidden="true">🎁</div>
             <h3>Geschenke nach Wunsch</h3>
-            <p>Personalisierte Arbeiten für Geburt, Hochzeit, Taufe, Jubiläum oder besondere Anlässe — mit Namen, Motiven oder individuellen Maßen.</p>
+            <p>
+              Personalisierte Arbeiten für Geburt, Hochzeit, Taufe, Jubiläum oder besondere Anlässe -
+              mit Namen, Motiven oder individuellen Maßen.
+            </p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="ueber-uns">
+    <section id="ueber-uns" aria-labelledby="ueber-uns-title">
       <div class="container split">
-        <div class="image-placeholder"></div>
+        <div class="image-placeholder" aria-hidden="true"></div>
+
         <div class="content-panel">
           <span class="eyebrow">Über die Werkstatt</span>
-          <h2>Aus einer Idee wird ein Stück, das bleibt.</h2>
+          <h2 id="ueber-uns-title">Aus einer Idee wird ein Stück, das bleibt.</h2>
           <p>
-            Bei Fassnacht Manufaktur geht es nicht um schnelle Massenproduktion. Es geht um ehrliches Handwerk, natürliche Materialien und Produkte, die bewusst gestaltet werden. Jedes Projekt beginnt mit einer Idee — manchmal klar, manchmal nur als grobe Vorstellung. Daraus entsteht Schritt für Schritt ein persönliches Holzstück.
+            Bei Fassnacht Manufaktur geht es nicht um schnelle Massenproduktion.
+            Es geht um ehrliches Handwerk, natürliche Materialien und Produkte, die bewusst gestaltet werden.
+            Jedes Projekt beginnt mit einer Idee - manchmal klar, manchmal nur als grobe Vorstellung.
+            Daraus entsteht Schritt für Schritt ein persönliches Holzstück.
           </p>
+
           <ul class="checklist">
             <li>Individuelle Beratung vor jeder Anfertigung</li>
             <li>Saubere Holzbearbeitung mit Liebe zum Detail</li>
@@ -616,55 +1098,65 @@
       </div>
     </section>
 
-    <section id="prozess">
+    <section id="prozess" aria-labelledby="prozess-title">
       <div class="container">
         <div class="section-head">
-          <h2>So läuft eine Anfrage ab</h2>
-          <p>Klar, einfach und professionell — damit aus einer Idee ein realistisches Projekt wird.</p>
+          <h2 id="prozess-title">So läuft eine Anfrage ab</h2>
+          <p>Klar, einfach und professionell - damit aus einer Idee ein realistisches Projekt wird.</p>
         </div>
+
         <div class="process">
-          <div class="step">
+          <article class="step">
             <h3>Idee senden</h3>
             <p>Du beschreibst kurz, was du dir vorstellst. Bilder, Maße oder Beispiele helfen sehr.</p>
-          </div>
-          <div class="step">
+          </article>
+
+          <article class="step">
             <h3>Machbarkeit prüfen</h3>
             <p>Material, Größe, Zweck und Aufwand werden eingeschätzt. Bei Kinderartikeln wird besonders sauber geprüft.</p>
-          </div>
-          <div class="step">
+          </article>
+
+          <article class="step">
             <h3>Angebot erhalten</h3>
             <p>Du bekommst einen Vorschlag mit Preisrahmen, Zeitplan und wichtigen Details.</p>
-          </div>
-          <div class="step">
+          </article>
+
+          <article class="step">
             <h3>Anfertigung</h3>
             <p>Nach Freigabe wird dein Stück gefertigt und auf Wunsch mit Zwischenständen dokumentiert.</p>
-          </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="galerie">
+    <section id="galerie" aria-labelledby="galerie-title">
       <div class="container">
         <div class="section-head">
-          <h2>Einblicke in Arbeiten</h2>
-          <p>Hier können später echte Projektbilder eingefügt werden. Die Dateinamen sind vorbereitet: projekt-1.jpg bis projekt-5.jpg.</p>
+          <h2 id="galerie-title">Einblicke in Arbeiten</h2>
+          <p>
+            Hier können später echte Projektbilder eingefügt werden. Die Dateinamen sind vorbereitet:
+            projekt-1.jpg bis projekt-5.jpg.
+          </p>
         </div>
-        <div class="gallery">
-          <div class="gallery-item">Projektbild 1</div>
-          <div class="gallery-item">Projektbild 2</div>
-          <div class="gallery-item">Projektbild 3</div>
-          <div class="gallery-item">Projektbild 4</div>
-          <div class="gallery-item">Projektbild 5</div>
+
+        <div class="gallery" role="list" aria-label="Projektbeispiele">
+          <div class="gallery-item gallery-item--1" role="listitem">Projektbild 1</div>
+          <div class="gallery-item gallery-item--2" role="listitem">Projektbild 2</div>
+          <div class="gallery-item gallery-item--3" role="listitem">Projektbild 3</div>
+          <div class="gallery-item gallery-item--4" role="listitem">Projektbild 4</div>
+          <div class="gallery-item gallery-item--5" role="listitem">Projektbild 5</div>
         </div>
       </div>
     </section>
 
-    <section>
+    <section aria-labelledby="hinweis-title">
       <div class="container notice">
         <div>
-          <h2>Kinderspielzeug? Ja — aber bewusst.</h2>
+          <h2 id="hinweis-title">Kinderspielzeug? Ja - aber bewusst.</h2>
           <p>
-            Für Produkte, die ausdrücklich als Kinderspielzeug verkauft werden, gelten besondere Anforderungen an Sicherheit, Material, Oberflächen, Farben und Kennzeichnung. Deshalb ist die Seite so formuliert, dass sie professionell wirkt, aber dich nicht zu früh auf eine rechtlich sensible Kategorie festnagelt.
+            Für Produkte, die ausdrücklich als Kinderspielzeug verkauft werden, gelten besondere Anforderungen an Sicherheit,
+            Material, Oberflächen, Farben und Kennzeichnung. Deshalb bleibt die Positionierung professionell,
+            ohne dich früh auf eine rechtlich sensible Kategorie festzulegen.
           </p>
         </div>
         <a class="btn btn-secondary" href="#kontakt">Beratung starten</a>
@@ -675,23 +1167,28 @@
   <footer id="kontakt" class="contact">
     <div class="container contact-grid">
       <div>
-        <span class="eyebrow" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.16);">Kontakt</span>
+        <span class="eyebrow eyebrow-light">Kontakt</span>
         <h2>Lass uns dein Holzprojekt planen.</h2>
         <p>
-          Schreibe kurz, was du suchst: Geschenk, Deko, Kinderzimmer-Idee, Schild, Möbelstück oder eine ganz eigene Vorstellung. Je genauer die Beschreibung, desto besser kann ein Preisrahmen eingeschätzt werden.
+          Schreibe kurz, was du suchst: Geschenk, Deko, Kinderzimmer-Idee, Schild, Möbelstück oder eine ganz eigene Vorstellung.
+          Je genauer die Beschreibung, desto besser kann ein Preisrahmen eingeschätzt werden.
         </p>
-        <p><strong>E-Mail:</strong> <a href="mailto:deine-email@example.com">deine-email@example.com</a></p>
+        <p>
+          <strong>E-Mail:</strong>
+          <a data-contact-email href="mailto:deine-email@example.com">deine-email@example.com</a>
+        </p>
       </div>
 
-      <form class="contact-card" action="mailto:deine-email@example.com" method="post" enctype="text/plain">
+      <form class="contact-card" data-contact-form action="mailto:deine-email@example.com" method="post" enctype="text/plain">
         <label for="name">Name</label>
-        <input id="name" name="Name" placeholder="Dein Name" />
+        <input id="name" name="Name" placeholder="Dein Name" autocomplete="name" required />
 
         <label for="email">E-Mail</label>
-        <input id="email" name="E-Mail" type="email" placeholder="deine@email.de" />
+        <input id="email" name="E-Mail" type="email" placeholder="deine@email.de" autocomplete="email" required />
 
         <label for="type">Art der Anfrage</label>
-        <select id="type" name="Art der Anfrage">
+        <select id="type" name="Art der Anfrage" required>
+          <option value="">Bitte wählen</option>
           <option>Individuelle Holzarbeit</option>
           <option>Geschenk / Personalisierung</option>
           <option>Kinderzimmer / Spielidee</option>
@@ -700,9 +1197,14 @@
         </select>
 
         <label for="message">Nachricht</label>
-        <textarea id="message" name="Nachricht" placeholder="Beschreibe kurz deine Idee, Maße, Wunschmaterial oder lade später Bilder per E-Mail mit hoch."></textarea>
+        <textarea
+          id="message"
+          name="Nachricht"
+          placeholder="Beschreibe kurz deine Idee, Maße, Wunschmaterial oder lade später Bilder per E-Mail mit hoch."
+          required
+        ></textarea>
 
-        <button class="btn btn-primary" type="submit" style="width: 100%; background: var(--wood-soft);">Anfrage absenden</button>
+        <button class="btn btn-primary btn-primary-soft" type="submit">Anfrage absenden</button>
       </form>
     </div>
 
@@ -712,8 +1214,81 @@
     </div>
   </footer>
 
+  <div class="mobile-cta" aria-label="Schnellaktionen">
+    <a class="mobile-cta__link mobile-cta__link--primary" href="#kontakt">Jetzt anfragen</a>
+    <a class="mobile-cta__link" href="mailto:deine-email@example.com">E-Mail senden</a>
+  </div>
+
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    (function () {
+      const yearNode = document.getElementById("year");
+      if (yearNode) {
+        yearNode.textContent = String(new Date().getFullYear());
+      }
+
+      const topbar = document.querySelector(".topbar");
+      const toggle = document.querySelector("[data-menu-toggle]");
+      const mobileNav = document.getElementById("mobile-navigation");
+      const mobileNavLinks = mobileNav ? mobileNav.querySelectorAll("a[href^='#']") : [];
+      const bodyNode = document.body;
+
+      function setMenuState(isOpen) {
+        if (!topbar || !toggle) {
+          return;
+        }
+        topbar.dataset.menuState = isOpen ? "open" : "closed";
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        toggle.textContent = isOpen ? "Schließen" : "Menü";
+        if (bodyNode) {
+          bodyNode.classList.toggle("menu-open", isOpen);
+        }
+      }
+
+      function closeMenu() {
+        setMenuState(false);
+      }
+
+      if (toggle && topbar) {
+        toggle.addEventListener("click", function () {
+          const isOpen = topbar.dataset.menuState === "open";
+          setMenuState(!isOpen);
+        });
+      }
+
+      mobileNavLinks.forEach(function (link) {
+        link.addEventListener("click", closeMenu);
+      });
+
+      if (mobileNav) {
+        mobileNav.addEventListener("click", function (event) {
+          if (event.target === mobileNav) {
+            closeMenu();
+          }
+        });
+      }
+
+      const mq = window.matchMedia("(min-width: 921px)");
+      const handleMqChange = function (event) {
+        if (event.matches) {
+          closeMenu();
+        }
+      };
+      if (mq) {
+        if (typeof mq.addEventListener === "function") {
+          mq.addEventListener("change", handleMqChange);
+        } else if (typeof mq.addListener === "function") {
+          mq.addListener(handleMqChange);
+        }
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeMenu();
+        }
+      });
+
+      setMenuState(false);
+    })();
   </script>
 </body>
 </html>
